@@ -1,21 +1,51 @@
 version: '3'
 
 services:
-###> doctrine/doctrine-bundle ###
-  database:
-    image: postgres:${POSTGRES_VERSION:-13}-alpine
-    environment:
-      POSTGRES_DB: ${POSTGRES_DB:-app}
-      # You should definitely change the password in production
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-ChangeMe}
-      POSTGRES_USER: ${POSTGRES_USER:-symfony}
+  php:
+    container_name: symfony-php
+    hostname: symfony-php
+    build: .
+    restart: "no" # unless-stopped
+    depends_on: 
+      - mysql
+    ports:
+      - 7777:8000
     volumes:
-      - db-data:/var/lib/postgresql/data:rw
-      # You may use a bind-mounted host directory instead, so that it is harder to accidentally remove the volume and lose all your data!
-      # - ./docker/db/data:/var/lib/postgresql/data:rw
-###< doctrine/doctrine-bundle ###
+      - ./:/app
+    networks:
+      - bridge
+
+  mysql:
+    container_name: symfony-mysql
+    image: mysql:5.7
+    restart: "no" # unless-stopped
+    volumes:
+      - data_mysql:/var/lib/mysql
+    env_file:
+      - .env
+    environment:
+      - MYSQL_DATABASE=lpweb_mvc
+      - MYSQL_USER=lpweb
+      - MYSQL_PASSWORD=lpweb
+      - MYSQL_RANDOM_ROOT_PASSWORD=yes
+    networks:
+      - bridge
+
+  phpmyadmin:
+    container_name: symfony-phpmyadmin
+    image: phpmyadmin/phpmyadmin
+    restart: "no" # unless-stopped
+    ports:
+      - 7778:80
+    environment:
+      - PMA_HOST=mysql
+      - PMA_USER=${MYSQL_USER}
+      - PMA_PASSWORD=${MYSQL_PASSWORD}
+    networks:
+      - bridge
+
+networks:
+  bridge:
 
 volumes:
-###> doctrine/doctrine-bundle ###
-  db-data:
-###< doctrine/doctrine-bundle ###
+  data_mysql:
