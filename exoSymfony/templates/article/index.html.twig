@@ -17,4 +17,28 @@
         <li>Your template at <code><a href="{{ '/app/templates/article/index.html.twig'|file_link(0) }}">templates/article/index.html.twig</a></code></li>
     </ul>
 </div>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Titre</th>
+      <th scope="col">Contenu</th>
+      <th scope="col">Date et Autheur</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Mark</td>
+      <td>Otto</td>
+      <td>@mdo</td>
+    </tr>
+    {% for article in listArticles %}
+        <tr>
+            <td>{{ article|title }}</td>
+            <td>{{ article|content }}</td>
+            <td>{{  }}</td>
+        </tr>
+    {% endfor %}
+  </tbody>
+</table>
 {% endblock %}

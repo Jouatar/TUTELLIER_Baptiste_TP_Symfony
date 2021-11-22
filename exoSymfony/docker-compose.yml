@@ -24,9 +24,9 @@ services:
     env_file:
       - .env
     environment:
-      - MYSQL_DATABASE=lpweb_mvc
-      - MYSQL_USER=lpweb
-      - MYSQL_PASSWORD=lpweb
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
       - MYSQL_RANDOM_ROOT_PASSWORD=yes
     networks:
       - bridge
