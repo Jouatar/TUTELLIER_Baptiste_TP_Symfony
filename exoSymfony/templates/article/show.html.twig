@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ArticleController!{% endblock %}
+
+{% block body %}
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Titre</th>
+      <th scope="col">Contenu</th>
+      <th scope="col">Autheur</th>
+      <th scope="col">Date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+        <td>{{ article.title }}</td>
+        <td>{{ article.content }}</td>
+        <td>{{ article.author }}</td>
+        <td>{{ article.createdAt|date("m/d/Y") }}</td>
+    </tr>
+  </tbody>
+</table>
+<a href='{{app.request.headers.get('referer')}}'>Retour</a>
+{% endblock %}

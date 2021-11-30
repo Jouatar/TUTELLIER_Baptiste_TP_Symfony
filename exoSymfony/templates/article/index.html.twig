@@ -3,20 +3,6 @@
 {% block title %}Hello ArticleController!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/app/src/Controller/ArticleController.php'|file_link(0) }}">src/Controller/ArticleController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/app/templates/article/index.html.twig'|file_link(0) }}">templates/article/index.html.twig</a></code></li>
-    </ul>
-</div>
 
 <table class="table">
   <thead>
@@ -27,18 +13,14 @@
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-    </tr>
     {% for article in listArticles %}
         <tr>
-            <td>{{ article|title }}</td>
-            <td>{{ article|content }}</td>
-            <td>{{  }}</td>
+            <td><a href="{{ path('article.show', {id : article.id}) }}">{{ article.title }}</a></td>
+            <td>{{ article.content[:300] }}<a href="{{ path('article.show', {id : article.id}) }}">... voir plus</a></td>
+            <td>{{ article.createdAt|date("m/d/Y") }} {{ article.author}}</td>
         </tr>
     {% endfor %}
   </tbody>
+  {{ knp_pagination_render(listArticles) }}
 </table>
 {% endblock %}
