@@ -21,7 +21,7 @@ class ArticleController extends AbstractController
         //dd($articles);
         $articles = $paginator->paginate(
             $listArticles, /* query NOT result */
-            $request->query->getInt('page', 2), /*page number*/
+            $request->query->getInt('page', 1), /*page number*/
             10 /*limit per page*/
         );
         return $this->render('article/index.html.twig', [

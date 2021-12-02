@@ -19,6 +19,23 @@ class ArticleRepository extends ServiceEntityRepository
         parent::__construct($registry, Article::class);
     }
 
+    public function countArticleOfCategory(int $idCat): array
+    {
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = '
+            SELECT COUNT(*) AS nbArticle
+            FROM article
+            WHERE category_id = :idCat
+            GROUP BY category_id
+            ';x
+        $stmt = $conn->prepare($sql);
+        $stmt->execute(['idCat' => $idCat]);
+
+        // returns an array of arrays (i.e. a raw data set)
+        return $stmt->fetchAllAssociative();
+    }
+
     // /**
     //  * @return Article[] Returns an array of Article objects
     //  */
