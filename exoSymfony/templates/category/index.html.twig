@@ -16,7 +16,7 @@
         <tr>
             <td><a href="{{ path('category.show', {id : category.id}) }}">{{ category.name }}</a></td>
             <td>{{ category.description }}</td>
-            <td></td>
+            <td>{{ listNbArticle[category.id]}}</td>
         </tr>
     {% endfor %}
   </tbody>

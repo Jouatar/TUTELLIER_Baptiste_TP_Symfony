@@ -28,7 +28,7 @@ class ArticleRepository extends ServiceEntityRepository
             FROM article
             WHERE category_id = :idCat
             GROUP BY category_id
-            ';x
+            ';
         $stmt = $conn->prepare($sql);
         $stmt->execute(['idCat' => $idCat]);
 

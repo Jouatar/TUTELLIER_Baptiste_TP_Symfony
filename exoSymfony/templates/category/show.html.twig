@@ -4,4 +4,26 @@
 
 {% block body %}
 
+<h2>{{category.name}}</h2>
+<p>{{ category.description }}<br>
+<strong>{{nbArticle}} articles</strong></p>
+<table class="table">
+    <thead>
+        <tr>
+            <td colspan="4">article de la category {{category.name}}</td>
+        </tr>
+    </thead>
+    <tbody>
+    {% for article in listArticles %}
+        <tr>
+            <td><a href="{{ path('article.show', {id : article.id}) }}">{{ article.title }}</td>
+            <td>{{ article.content }}</td>
+            <td>{{ article.author }}</td>
+            <td>{{ article.createdAt|date("m/d/Y") }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+<a href="javascript:history.go(-1)">Retour</a>
+
 {% endblock %}
