@@ -19,6 +19,32 @@ class ProductRepository extends ServiceEntityRepository
         parent::__construct($registry, Product::class);
     }
 
+    public function orderByDate(): array
+    {
+        $conn = $this->getEntityManager()->getConnection();
+        $sql = '
+            SELECT * FROM `product` ORDER by created_at DESC
+            ';
+        $stmt = $conn->prepare($sql);
+        $result = $stmt->executeQuery();
+
+        // returns an array of arrays (i.e. a raw data set)
+        return $result->fetchAllAssociative();
+    }
+
+    public function orderByPrice(): array
+    {
+        $conn = $this->getEntityManager()->getConnection();
+        $sql = '
+            SELECT * FROM `product` ORDER by price
+            ';
+            $stmt = $conn->prepare($sql);
+            $result = $stmt->executeQuery();
+    
+            // returns an array of arrays (i.e. a raw data set)
+            return $result->fetchAllAssociative();
+    }
+
     // /**
     //  * @return Product[] Returns an array of Product objects
     //  */
@@ -47,4 +73,8 @@ class ProductRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    //SELECT * FROM `product` ORDER by created_at DESC;
+
+    //SELECT * FROM `product` ORDER by price DESC;
 }

@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Produit n°{{ product.id }}{% endblock %}
+
+{% block body %}
+<table class="table">
+  <tbody>
+    <tr>
+      <td class="col"><strong>Nom :</strong></td>
+      <td class="col">{{ product.name }}</td>
+    </tr>
+    <tr>
+      <td><strong>Prix :</strong></td>
+      <td>{{ product.price }}</td>
+    </tr>
+    <tr>
+      <td><strong>Description :</strong></td>
+      <td>{{ product.Description }}</td>
+    </tr>
+    <tr>
+      <td><strong>Créer le :</strong></td>
+      <td>{{ product.createdAt|date("m/d/Y") }}</td>
+    </tr>
+  </tbody>
+</table>
+<a href='http://baptiste.lpweb-lannion.fr:7780/product'>Retour</a></br>
+<button id="btnAddCart" onclick="addToCart()">Ajouter au pannier</button>
+<script>
+var mtRes = '';
+var cartKeys = JSON.parse('{{ cart | json_encode | raw }}');
+if(cartKeys[{{ product.id }}]===1){
+    document.getElementById('btnAddCart').disabled = true;
+}
+
+function addToCart() {
+  console.log(fetch("/cart/add/{{ product.id }}"));
+  fetch("/cart/add/{{ product.id }}")
+    .then(data => {
+      console.log(data);
+      document.getElementById('btnAddCart').disabled = true;
+    })
+}
+</script>
+{% endblock %}

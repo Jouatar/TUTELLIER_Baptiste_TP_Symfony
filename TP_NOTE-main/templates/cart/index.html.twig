@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello CartController!{% endblock %}
+
+{% block body %}
+{% if cart != [] %}
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Nom</th>
+      <th scope="col">Prix</th>
+      <th scope="col">Quantité</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for key, quantite in cart %}
+      {% for product in listProducts %}
+        {% if key == product.id %}
+          <tr>
+            <td>{{ product.name }}</td>
+            <td>{{ product.price }}</td>
+            <td>{{ quantite }}</td>
+            <td><a href="http://baptiste.lpweb-lannion.fr:7780/cart/delete/{{ key }}"><button>Supprimer le produit</button></a></td>
+          </tr>
+        {% endif %}
+      {% endfor %}
+    {% endfor %}
+    <tr>
+      <th colspan="2">Total :</th>
+      <td>{{ total }}€</td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>    
+{{ form_start(commandForm) }}
+  {{ form_row(commandForm.email) }}
+
+  <button type="submit" class="btn btn-primary btn-block">
+      Créer l'article
+  </button>
+{{ form_end(commandForm) }}
+{% else %}
+<p>
+    Le panier est vide.
+</p>
+{% endif %}
+<script>
+setTimeout(function() {
+  if({{ deleted }}){
+    alert('Produit supprimé');
+  }
+}, 500);
+</script>
+{% endblock %}

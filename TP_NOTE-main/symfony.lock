@@ -89,7 +89,7 @@
         "version": "3.3.2"
     },
     "doctrine/orm": {
-        "version": "2.10.3"
+        "version": "2.10.4"
     },
     "doctrine/persistence": {
         "version": "2.2.3"
@@ -104,7 +104,7 @@
         "version": "v1.0.5"
     },
     "fzaninotto/faker": {
-        "version": "v1.9.2"
+        "version": "v1.9.0"
     },
     "laminas/laminas-code": {
         "version": "4.5.1"

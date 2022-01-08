@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HomeController!{% endblock %}
+
+{% block body %}
+<style>
+#home{
+    display: flex;
+}
+table.table{
+    flex-basis: 50%;
+}
+</style>
+<div id="home">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Les produits les moins cher</th>
+                <th scope="col">Les produits les plus recent</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for product in listProductsPrice|keys %}
+                <tr>
+                    <td><a href="{{ path('product.show', {id : listProductsPrice[product].id}) }}">{{ listProductsPrice[product].name }}</a> <strong>prix : {{ listProductsPrice[product].price }}€</strong></td>
+                    <td><a href="{{ path('product.show', {id : listProductsDate[product].id}) }}">{{ listProductsDate[product].name }}</a> <strong>date de création : {{ listProductsDate[product].created_at }}</strong></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
